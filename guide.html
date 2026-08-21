@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="폭염·열대야·체감온도·절대습도의 뜻과 이 값들이 함께 변하는 이유를 단계별로 정리합니다." />
+<title>개념 정리 | 우리동네 폭염 미래 실험실</title>
+<link rel="stylesheet" href="css/style.css?v=20260821h" />
+</head>
+<body>
+
+<div class="skip-nav">
+    <a href="#mainContent">본문 바로가기</a>
+    <a href="#gnb">주메뉴 바로가기</a>
+</div>
+
+<!-- ====================== 헤더 + 주메뉴 ====================== -->
+<header class="site-header">
+    <div class="site-top">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">🌡</span>
+                <span class="brand-text">
+                    <span class="brand-name">우리동네 폭염 미래 실험실</span>
+                </span>
+            </a>
+            <button type="button" class="gnb-toggle" id="gnbToggle" aria-expanded="false" aria-controls="gnb">
+                <span aria-hidden="true">☰</span><span class="gt-text">메뉴 열기</span>
+            </button>
+        </div>
+    </div>
+
+    <nav class="site-nav" aria-label="주메뉴">
+        <div class="container">
+            <ul class="gnb" id="gnb" data-collapsed="true">
+                <li><a href="index.html"><span class="gnb-ico" aria-hidden="true">🏠</span>홈</a></li>
+                <li><a href="game.html"><span class="gnb-ico" aria-hidden="true">🎮</span>우리동네 기후 게임</a></li>
+                <li><a href="search.html"><span class="gnb-step" aria-hidden="true">1</span>우리 지역 보기</a></li>
+
+                <li><a href="mylab.html"><span class="gnb-step" aria-hidden="true">2</span>내가 만드는 미래</a></li>
+                <li><a href="guide.html" aria-current="page"><span class="gnb-step" aria-hidden="true">3</span>개념 정리</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="page-head">
+    <div class="container">
+        <div class="page-head-main">
+            <div>
+                <h1>개념 정리</h1>
+                <p class="page-lead">폭염 관련 개념을 정리하고 퀴즈로 확인하세요.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="site-main" id="mainContent">
+    <div class="container">
+        <!-- ---------- 기준 지점 ---------- -->
+        <section class="search-panel" aria-labelledby="baseTitle">
+            <div class="search-head">
+                <h2 id="baseTitle"><span aria-hidden="true">📍</span> 설명 기준 지점</h2>
+                <span class="search-hint">지점을 바꾸면 설명 속 숫자가 그 지점의 값으로 바뀝니다.</span>
+            </div>
+            <div class="search-body">
+                <div class="form-field grow">
+                    <label for="guideRegion">기준 지점</label>
+                    <select class="select" id="guideRegion"></select>
+                </div>
+                <div class="search-actions">
+                    <a class="btn btn-navy" id="goSearchLink" href="search.html">
+                        이 지점 자세히 조회하기
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- 게임에서 이어진 맞춤 학습 ---------- -->
+        <section class="section game-review-section" id="gameReview" hidden aria-labelledby="gameReviewTitle">
+            <div class="game-review-panel">
+                <div class="game-review-head">
+                    <div>
+                        <span class="section-index">게임에서 이어서</span>
+                        <h2 id="gameReviewTitle">내 선택의 원리 정리하기</h2>
+                    </div>
+                    <span class="game-review-region" id="gameReviewRegion"></span>
+                </div>
+                <div class="game-review-summary" id="gameReviewSummary"></div>
+                <ol class="game-review-choices" id="gameReviewChoices"></ol>
+            </div>
+        </section>
+
+        <!-- ---------- 개념 선택 ---------- -->
+        <section class="section" aria-labelledby="topicTitle">
+            <h2 class="h-section" id="topicTitle">폭염 관련 궁금증 해결!</h2>
+            <div class="topic-grid" id="topicGrid" role="group" aria-label="개념 선택"></div>
+        </section>
+
+        <!-- ---------- 단계별 설명 ---------- -->
+        <section class="section" aria-labelledby="stepTitle">
+            <h2 class="sr-only" id="stepTitle">단계별 설명</h2>
+            <div class="box">
+                <div class="box-head">
+                    <span class="box-title" id="stepHeading">단계별 설명</span>
+                    <span class="box-desc" id="stepDesc"></span>
+                </div>
+                <div class="box-body">
+                    <div class="step-list" id="stepList"></div>
+                </div>
+                <div class="box-foot" id="stepFoot"></div>
+            </div>
+        </section>
+
+        <!-- ---------- 확인 퀴즈 ---------- -->
+        <section class="section" aria-labelledby="quizTitle">
+            <h2 class="h-section" id="quizTitle">기후 퀴즈 도전</h2>
+            <div class="quiz-game">
+                <div class="quiz-game-top">
+                    <span class="quiz-progress-text" id="quizProgress">1 / 5</span>
+                    <div class="quiz-progress-track" aria-hidden="true">
+                        <span id="quizProgressBar"></span>
+                    </div>
+                    <span class="quiz-score" id="quizScore">0점</span>
+                </div>
+
+                <div class="quiz-play" id="quizPlay">
+                    <div class="quiz-question-head">
+                        <span class="quiz-category" id="quizCategory">개념</span>
+                        <h3 id="quizPrompt">문제</h3>
+                    </div>
+                    <div class="quiz-options" id="quizOptions"></div>
+
+                    <div class="quiz-feedback" id="quizFeedback" hidden aria-live="assertive">
+                        <span class="quiz-feedback-icon" id="quizFeedbackIcon" aria-hidden="true"></span>
+                        <div>
+                            <strong id="quizVerdict"></strong>
+                            <p id="quizExplain"></p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-actions">
+                        <button type="button" class="btn btn-primary" id="quizNext" hidden>
+                            다음 문제 <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="quiz-finish" id="quizFinish" hidden aria-live="polite">
+                    <span class="quiz-finish-icon" aria-hidden="true">🏆</span>
+                    <p class="quiz-finish-label">퀴즈 완료</p>
+                    <strong id="quizFinalScore">5 / 5</strong>
+                    <p id="quizFinalMessage"></p>
+                    <button type="button" class="btn btn-primary" id="quizRestart">
+                        새 문제 도전하기
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- 용어 설명 ---------- -->
+        <section class="section" aria-labelledby="termTitle">
+            <h2 class="h-section" id="termTitle">용어 설명</h2>
+            <div class="table-wrap">
+                <table class="data-table def-table">
+                    <caption>이 서비스에서 쓰는 주요 용어</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width:22%;">용어</th>
+                            <th scope="col">뜻</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">폭염일수</th>
+                            <td>하루 최고기온이 <b>33℃ 이상</b>이었던 날이 1년에 며칠인지 센 값입니다. 낮 더위가 얼마나 심한지를 나타냅니다.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">열대야일수</th>
+                            <td>밤(저녁 6시부터 다음날 아침 9시까지) 최저기온이 <b>25℃ 이상</b>이었던 날이 1년에 며칠인지 센 값입니다. 밤에 기온이 충분히 내려가지 않아 잠자기 힘든 날을 뜻합니다.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">체감온도</th>
+                            <td>기온과 습도를 함께 따져서, 사람이 실제로 느끼는 더위를 온도로 나타낸 값입니다. 습도가 높으면 땀이 잘 마르지 않아 같은 기온에서도 더 덥게 느껴집니다.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">절대습도</th>
+                            <td>공기 1m³ 안에 들어 있는 수증기의 무게(g/m³)입니다. 상대습도와 달리 기온이 바뀌어도 값이 변하지 않아, 공기 중 수증기가 실제로 얼마나 늘었는지 보기에 좋습니다.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">SSP1-2.6 시나리오</th>
+                            <td>앞으로 온실가스를 얼마나 배출할지 가정한 여러 시나리오 중 하나입니다. SSP1-2.6은 <b>온실가스를 상당히 줄였을 때</b>의 경로로, 네 가지 표준 시나리오 중 가장 낙관적인 쪽입니다.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">폭염위험지수</th>
+                            <td>폭염일수·열대야일수·여름 체감온도를 합쳐 <b>0~100점</b>으로 나타낸 값입니다. 지역끼리, 시기끼리 비교하기 위해 이 서비스가 직접 만든 점수이며 기상청 공식 등급이 아닙니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <nav class="page-flow" id="pageFlow" data-page-flow="guide.html" aria-label="다른 페이지로 이동"></nav>
+    </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/climate.js"></script>
+<script src="js/common.js?v=20260821h"></script>
+<script src="js/game-data.js?v=20260821"></script>
+<script src="js/guide.js?v=20260821h"></script>
+</body>
+</html>

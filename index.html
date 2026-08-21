@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="폭염이 심해지는 원인과 일상의 행동이 미래 더위에 미치는 영향을 게임과 자료로 알아보는 교육용 서비스입니다." />
+<title>홈 | 우리동네 폭염 미래 실험실</title>
+<link rel="stylesheet" href="css/style.css?v=20260821h" />
+</head>
+<body>
+
+<div class="skip-nav">
+    <a href="#mainContent">본문 바로가기</a>
+    <a href="#gnb">주메뉴 바로가기</a>
+</div>
+
+<!-- ====================== 헤더 + 주메뉴 ====================== -->
+<header class="site-header">
+    <div class="site-top">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">🌡</span>
+                <span class="brand-text">
+                    <span class="brand-name">우리동네 폭염 미래 실험실</span>
+                </span>
+            </a>
+            <button type="button" class="gnb-toggle" id="gnbToggle" aria-expanded="false" aria-controls="gnb">
+                <span aria-hidden="true">☰</span><span class="gt-text">메뉴 열기</span>
+            </button>
+        </div>
+    </div>
+
+    <nav class="site-nav" aria-label="주메뉴">
+        <div class="container">
+            <ul class="gnb" id="gnb" data-collapsed="true">
+                <li><a href="index.html" aria-current="page"><span class="gnb-ico" aria-hidden="true">🏠</span>홈</a></li>
+                <li><a href="game.html"><span class="gnb-ico" aria-hidden="true">🎮</span>우리동네 기후 게임</a></li>
+                <li><a href="search.html"><span class="gnb-step" aria-hidden="true">1</span>우리 지역 보기</a></li>
+
+                <li><a href="mylab.html"><span class="gnb-step" aria-hidden="true">2</span>내가 만드는 미래</a></li>
+                <li><a href="guide.html"><span class="gnb-step" aria-hidden="true">3</span>개념 정리</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="home-hero">
+    <div class="container">
+        <h1>우리 동네는<br /><em>앞으로 얼마나</em> 더워질까요?</h1>
+        <p class="hh-lead">
+            폭염이 왜 심해지는지 알아보고, 내 행동이 미래 더위에 미치는 영향을 직접 확인해 보세요.
+        </p>
+        <div class="hh-actions">
+            <a class="btn btn-primary btn-lg" href="search.html">
+                <span aria-hidden="true">📍</span> 우리 지역 확인하기
+            </a>
+            <a class="btn btn-line btn-lg" href="guide.html">
+                <span aria-hidden="true">📚</span> 개념 정리
+            </a>
+        </div>
+    </div>
+</div>
+
+<main class="site-main" id="mainContent">
+    <div class="container">
+        <!-- ---------- 웹페이지에서 확인할 내용 ---------- -->
+        <section class="section" aria-labelledby="peekTitle">
+            <h2 class="h-section" id="peekTitle">폭염의 원인과 내 행동의 영향을 알아봐요</h2>
+            <div class="home-purpose" aria-label="웹페이지에서 확인할 내용">
+                <div class="home-purpose-step">
+                    <span aria-hidden="true">🎮</span>
+                    <strong>우리동네 기후 게임</strong>
+                    <p>하루의 행동을 직접 선택해 봅니다.</p>
+                </div>
+                <span class="home-purpose-arrow" aria-hidden="true">→</span>
+                <div class="home-purpose-step">
+                    <span aria-hidden="true">🌡️</span>
+                    <strong>달라지는 미래</strong>
+                    <p>내 행동에 따라 달라지는 폭염을 확인합니다.</p>
+                </div>
+                <span class="home-purpose-arrow" aria-hidden="true">→</span>
+                <div class="home-purpose-step">
+                    <span aria-hidden="true">📚</span>
+                    <strong>개념 정리</strong>
+                    <p>폭염의 원인과 행동의 영향을 정리합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- 메뉴 카드 ---------- -->
+        <section class="section" aria-labelledby="menuTitle">
+            <h2 class="h-section" id="menuTitle">둘러보기</h2>
+            <div class="menu-grid" id="menuGrid"></div>
+        </section>
+
+        <nav class="page-flow" id="pageFlow" data-page-flow="index.html" aria-label="다른 페이지로 이동"></nav>
+    </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/climate.js"></script>
+<script src="js/common.js?v=20260821h"></script>
+<script src="js/page-home.js?v=20260821c"></script>
+</body>
+</html>

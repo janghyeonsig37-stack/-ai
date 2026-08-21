@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="지도에서 지역을 골라 주요 더위 수치와 연대별 변화, 지역 비교를 한눈에 확인합니다." />
+<title>우리 지역 보기 | 우리동네 폭염 미래 실험실</title>
+<link rel="stylesheet" href="css/style.css?v=20260821h" />
+</head>
+<body>
+
+<div class="skip-nav">
+    <a href="#mainContent">본문 바로가기</a>
+    <a href="#gnb">주메뉴 바로가기</a>
+</div>
+
+<header class="site-header">
+    <div class="site-top">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">🌡</span>
+                <span class="brand-text">
+                    <span class="brand-name">우리동네 폭염 미래 실험실</span>
+                </span>
+            </a>
+            <button type="button" class="gnb-toggle" id="gnbToggle" aria-expanded="false" aria-controls="gnb">
+                <span aria-hidden="true">☰</span><span class="gt-text">메뉴 열기</span>
+            </button>
+        </div>
+    </div>
+
+    <nav class="site-nav" aria-label="주메뉴">
+        <div class="container">
+            <ul class="gnb" id="gnb" data-collapsed="true">
+                <li><a href="index.html"><span class="gnb-ico" aria-hidden="true">🏠</span>홈</a></li>
+                <li><a href="game.html"><span class="gnb-ico" aria-hidden="true">🎮</span>우리동네 기후 게임</a></li>
+                <li><a href="search.html" aria-current="page"><span class="gnb-step" aria-hidden="true">1</span>우리 지역 보기</a></li>
+
+                <li><a href="mylab.html"><span class="gnb-step" aria-hidden="true">2</span>내가 만드는 미래</a></li>
+                <li><a href="guide.html"><span class="gnb-step" aria-hidden="true">3</span>개념 정리</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="page-head region-page-head">
+    <div class="container">
+        <div class="page-head-main">
+            <div>
+                <h1>우리 지역 보기</h1>
+                <p class="page-lead">지역별 더위와 앞으로의 변화를 한눈에 확인하세요.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="site-main" id="mainContent">
+    <div class="container">
+        <section class="region-map-hero" aria-labelledby="mapHeading">
+            <div class="region-map-toolbar">
+                <div>
+                    <span class="region-map-kicker">지역별 폭염 전망</span>
+                    <h2 id="mapHeading">지역 지도</h2>
+                </div>
+            </div>
+            <div class="co2-field region-decade-slider">
+                <div class="co2-label">
+                    <span class="cl-title" id="decadeSliderLabel">
+                        <label for="decadeSelect">시기</label>
+                    </span>
+                    <span class="cl-value" id="decadeValue"></span>
+                </div>
+                <input type="range" class="co2-slider decade-slider" id="decadeSelect"
+                       name="decade" aria-labelledby="decadeSliderLabel" />
+                <div class="co2-ticks" id="decadeTicks" aria-hidden="true"></div>
+            </div>
+            <div class="region-map-chart" id="mapChart" aria-label="조회 가능한 지역 지도"></div>
+            <div class="region-picks" id="regionPicks" aria-label="지역 선택"></div>
+            <div class="chart-legend-note region-map-legend">
+                <span><i class="lg-swatch" style="background:var(--g1-fg);"></i> 낮음</span>
+                <span><i class="lg-swatch" style="background:var(--g2-fg);"></i> 보통</span>
+                <span><i class="lg-swatch" style="background:var(--g3-fg);"></i> 높음</span>
+                <span><i class="lg-swatch" style="background:var(--g4-fg);"></i> 매우 높음</span>
+            </div>
+        </section>
+
+        <div id="resultArea">
+            <section class="section" aria-labelledby="summaryTitle">
+                <h2 class="sr-only" id="summaryTitle">선택 지역 요약</h2>
+                <div class="result-summary" id="resultSummary" aria-live="polite"></div>
+                <div class="kpi-grid region-kpi-grid" id="kpiGrid"></div>
+            </section>
+
+            <section class="section" aria-labelledby="trendTitle">
+                <div class="explorer-section-head">
+                    <div>
+                        <span class="section-index">변화</span>
+                        <h2 class="h-section" id="trendTitle">연대별 변화</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-head">
+                        <span class="box-title" id="trendHeading">연대별 변화</span>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart-area" id="trendChart"></div>
+                        <div class="chart-legend-note">
+                            <span><i class="lg-swatch" style="background:#c2570f;"></i> 폭염일수</span>
+                            <span><i class="lg-swatch" style="background:#21578f;"></i> 열대야일수</span>
+                            <span><i class="lg-swatch" style="background:#1a1e26; height:3px; border-radius:0;"></i> 연평균기온</span>
+                            <span><i class="lg-swatch" style="background:#fff; border:2px solid #a3211b;"></i> 선택한 시기</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" aria-labelledby="rankTitle">
+                <div class="explorer-section-head">
+                    <div>
+                        <span class="section-index">비교</span>
+                        <h2 class="h-section" id="rankTitle">같은 시기 지역 비교</h2>
+                    </div>
+                </div>
+                <div class="table-wrap region-rank-wrap">
+                    <table class="data-table rank-table" id="compareTable">
+                        <caption id="compareCaption"></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">순위</th>
+                                <th scope="col">지역</th>
+                                <th scope="col">폭염위험지수</th>
+                                <th scope="col" class="bar-cell">비교</th>
+                                <th scope="col">폭염일수</th>
+                                <th scope="col">열대야일수</th>
+                            </tr>
+                        </thead>
+                        <tbody id="compareBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <nav class="page-flow" id="pageFlow" data-page-flow="search.html" aria-label="다른 페이지로 이동"></nav>
+    </div>
+</main>
+
+<script src="js/vendor/plotly.min.js" charset="utf-8"></script>
+<script src="js/vendor/geo-asia.js" charset="utf-8"></script>
+<script src="js/data.js"></script>
+<script src="js/search-data.js?v=20260821d"></script>
+<script src="js/climate.js"></script>
+<script src="js/common.js?v=20260821h"></script>
+<script src="js/app.js?v=20260821h"></script>
+</body>
+</html>

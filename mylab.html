@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="CO₂ 배출량을 직접 정하면 XGBoost 모델이 우리 지역의 폭염일수·열대야일수·기온·체감온도를 예측하고 기상청 공식 전망과 비교해 보여 줍니다." />
+<title>내가 만드는 미래 | 우리동네 폭염 미래 실험실</title>
+<link rel="stylesheet" href="css/style.css?v=20260821h" />
+</head>
+<body>
+
+<div class="skip-nav">
+    <a href="#mainContent">본문 바로가기</a>
+    <a href="#gnb">주메뉴 바로가기</a>
+</div>
+
+<!-- ====================== 헤더 + 주메뉴 ====================== -->
+<header class="site-header">
+    <div class="site-top">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">🌡</span>
+                <span class="brand-text">
+                    <span class="brand-name">우리동네 폭염 미래 실험실</span>
+                </span>
+            </a>
+            <button type="button" class="gnb-toggle" id="gnbToggle" aria-expanded="false" aria-controls="gnb">
+                <span aria-hidden="true">☰</span><span class="gt-text">메뉴 열기</span>
+            </button>
+        </div>
+    </div>
+
+    <nav class="site-nav" aria-label="주메뉴">
+        <div class="container">
+            <ul class="gnb" id="gnb" data-collapsed="true">
+                <li><a href="index.html"><span class="gnb-ico" aria-hidden="true">🏠</span>홈</a></li>
+                <li><a href="game.html"><span class="gnb-ico" aria-hidden="true">🎮</span>우리동네 기후 게임</a></li>
+                <li><a href="search.html"><span class="gnb-step" aria-hidden="true">1</span>우리 지역 보기</a></li>
+
+                <li><a href="mylab.html" aria-current="page"><span class="gnb-step" aria-hidden="true">2</span>내가 만드는 미래</a></li>
+                <li><a href="guide.html"><span class="gnb-step" aria-hidden="true">3</span>개념 정리</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="page-head">
+    <div class="container">
+        <div class="page-head-main">
+            <div>
+                <h1>내가 만드는 미래</h1>
+                <p class="page-lead">CO₂와 습도를 조절하고 우리 지역의 미래를 비교해 보세요.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="site-main" id="mainContent">
+    <div class="container">
+        <!-- ---------- 조작 패널 ---------- -->
+        <section class="lab-panel" aria-labelledby="labTitle">
+            <div class="lab-head">
+                <h2 id="labTitle"><span aria-hidden="true">🎛</span> 우리가 무엇을 할까요?</h2>
+                <span class="lab-hint">버튼을 누르거나 아래 손잡이를 좌우로 끌어 보세요.</span>
+            </div>
+            <div class="lab-body">
+                <div class="search-body" style="padding:0 0 18px; background:transparent;">
+                    <div class="form-field grow">
+                        <label for="regionSelect">우리 지역</label>
+                        <select class="select" id="regionSelect"></select>
+                    </div>
+                    <div class="form-field grow">
+                        <label for="decadeSelect">언제를 볼까요</label>
+                        <select class="select" id="decadeSelect"></select>
+                    </div>
+                </div>
+
+                <div class="act-grid" id="actGrid" role="group" aria-label="배출 경로 선택"></div>
+
+                <div class="lab-sliders">
+                    <div class="co2-field">
+                        <div class="co2-label">
+                            <span class="cl-title" id="co2SliderLabel">
+                                <label for="co2Slider">CO₂ 배출</label>
+                            </span>
+                            <span class="cl-value" id="co2Value"></span>
+                            <span class="cl-note" id="co2Note"></span>
+                        </div>
+                        <input type="range" class="co2-slider" id="co2Slider"
+                               aria-labelledby="co2SliderLabel" />
+                        <div class="co2-ticks" id="co2Ticks" aria-hidden="true"></div>
+                    </div>
+
+                    <div class="co2-field">
+                        <div class="co2-label">
+                            <span class="cl-title" id="humiditySliderLabel">
+                                <label for="humiditySlider">습도 변화</label>
+                            </span>
+                            <span class="cl-value" id="humidityValue"></span>
+                            <span class="cl-note" id="humidityNote"></span>
+                        </div>
+                        <input type="range" class="co2-slider humidity-slider" id="humiditySlider"
+                               aria-labelledby="humiditySliderLabel" />
+                        <div class="co2-ticks" aria-hidden="true">
+                            <span>건조하게</span><span>기준</span><span>습하게</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- 자료 없는 지역 ---------- -->
+        <section class="box section" id="pendingBox" hidden aria-live="polite">
+            <div class="box-body">
+                <div class="empty-state">
+                    <div class="es-ico" aria-hidden="true">📍</div>
+                    <h3 id="pendingTitle">이 지역은 아직 자료를 준비하고 있습니다.</h3>
+                    <p>아래 지역 중 하나를 골라 주세요.</p>
+                    <div class="quick-picks" id="quickPicks">
+                        <span class="qp-label">고를 수 있는 지역</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="resultArea">
+
+            <!-- 한 줄 결론 -->
+            <section class="section" aria-labelledby="verdictTitle">
+                <h2 class="sr-only" id="verdictTitle">예측 결과 한 줄 요약</h2>
+                <div class="verdict" id="verdict" aria-live="polite"></div>
+            </section>
+
+            <!-- 전 기간 그래프 -->
+            <section class="section lab-feature-chart" aria-labelledby="chartTitle">
+                <h2 class="h-section" id="chartTitle">내 선택으로 달라지는 미래</h2>
+                <div class="box feature-chart-box">
+                    <div class="tab-list" role="tablist" aria-label="볼 항목 선택" id="viewTabs"></div>
+                    <div class="box-body">
+                        <div class="box-head" style="padding:0 0 14px; border-bottom:1px solid var(--gray-150);">
+                            <span class="box-title" id="chartHeading">변화</span>
+                            <span class="box-desc">붉은 선이 내 선택입니다. 슬라이더를 끌면 이 선이 움직입니다.</span>
+                        </div>
+                        <div class="chart-area" id="chart" style="margin-top:14px;"></div>
+                        <div class="chart-legend-note">
+                            <span><i class="lg-swatch" style="background:#8b99a9;"></i> 지금까지 실제 관측</span>
+                            <span><i class="lg-swatch" style="background:#14509b;"></i> 온실가스를 크게 줄였다면(공식 전망)</span>
+                            <span><i class="lg-swatch" style="background:#a3211b;"></i> 내가 고른 미래(AI 예측)</span>
+                            <span>붉은 칠한 부분이 <b>내 선택 때문에 생기는 차이</b>입니다.</span>
+                        </div>
+                        <p class="xgboost-note">XGBOOST를 활용한 예측 모델입니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 인과 사슬 -->
+            <section class="section" aria-labelledby="chainTitle">
+                <h2 class="h-section" id="chainTitle">내 선택으로 달라지는 값</h2>
+                <ol class="chain" id="chain" aria-live="polite"></ol>
+            </section>
+
+            <!-- 3단 비교 -->
+            <section class="section" aria-labelledby="cmpTitle">
+                <h2 class="h-section" id="cmpTitle">지금 · 공식 전망 · 내 선택 비교</h2>
+                <div class="cmp-grid" id="cmpGrid"></div>
+            </section>
+
+            <!-- 해설 -->
+            <section class="section" aria-labelledby="storyTitle" hidden>
+                <h2 class="h-section" id="storyTitle">이 결과는 무슨 뜻일까요?</h2>
+                <div class="box">
+                    <div class="box-head">
+                        <span class="box-title">예측 결과 설명</span>
+                    </div>
+                    <div class="box-body" id="story"></div>
+                </div>
+            </section>
+
+        </div><!-- /#resultArea -->
+
+        <nav class="page-flow" id="pageFlow" data-page-flow="mylab.html" aria-label="다른 페이지로 이동"></nav>
+    </div>
+</main>
+
+<!-- 차트 라이브러리와 예측 모델을 파일로 포함해 인터넷 없이도 동작합니다. -->
+<script src="js/vendor/plotly.min.js" charset="utf-8"></script>
+<script src="js/data.js"></script>
+<script src="js/model.js"></script>
+<script src="js/climate.js"></script>
+<script src="js/predict.js"></script>
+<script src="js/common.js?v=20260821h"></script>
+<script src="js/mylab.js?v=20260821h"></script>
+</body>
+</html>

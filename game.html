@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="하루 동안의 선택 5개로 우리 지역의 2070년대 폭염이 어떻게 달라지는지 직접 확인하는 교육용 게임입니다. 편함과 기후 두 가지를 동시에 지켜야 성공합니다." />
+<title>우리동네 기후 게임 | 우리동네 폭염 미래 실험실</title>
+<link rel="stylesheet" href="css/style.css?v=20260821h" />
+</head>
+<body>
+
+<div class="skip-nav">
+    <a href="#mainContent">본문 바로가기</a>
+    <a href="#gnb">주메뉴 바로가기</a>
+</div>
+
+<!-- ====================== 헤더 + 주메뉴 ====================== -->
+<header class="site-header">
+    <div class="site-top">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">🌡</span>
+                <span class="brand-text">
+                    <span class="brand-name">우리동네 폭염 미래 실험실</span>
+                </span>
+            </a>
+            <button type="button" class="gnb-toggle" id="gnbToggle" aria-expanded="false" aria-controls="gnb">
+                <span aria-hidden="true">☰</span><span class="gt-text">메뉴 열기</span>
+            </button>
+        </div>
+    </div>
+
+    <nav class="site-nav" aria-label="주메뉴">
+        <div class="container">
+            <ul class="gnb" id="gnb" data-collapsed="true">
+                <li><a href="index.html"><span class="gnb-ico" aria-hidden="true">🏠</span>홈</a></li>
+                <li><a href="game.html" aria-current="page"><span class="gnb-ico" aria-hidden="true">🎮</span>우리동네 기후 게임</a></li>
+                <li><a href="search.html"><span class="gnb-step" aria-hidden="true">1</span>우리 지역 보기</a></li>
+
+                <li><a href="mylab.html"><span class="gnb-step" aria-hidden="true">2</span>내가 만드는 미래</a></li>
+                <li><a href="guide.html"><span class="gnb-step" aria-hidden="true">3</span>개념 정리</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="page-head">
+    <div class="container">
+        <div class="page-head-main">
+            <div>
+                <h1>우리동네 기후 게임</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="site-main" id="mainContent">
+    <div class="container">
+
+        <!-- ---------- 시작 화면 ---------- -->
+        <section class="section" id="startScreen" aria-labelledby="startTitle">
+            <div class="box">
+                <div class="box-head">
+                    <span class="box-title" id="startTitle">어느 지역으로 시작할까요?</span>
+                    <span class="box-desc">지역을 고르면 바로 시작합니다.</span>
+                </div>
+                <div class="box-body">
+                    <div class="gm-pick" id="regionPick" role="group" aria-label="지역 선택"></div>
+
+                    <div class="gm-rules">
+                        <h3 class="gm-rules-title">게임 규칙</h3>
+                        <ol class="gm-rules-list">
+                            <li>다섯 상황에서 행동을 하나씩 고릅니다.</li>
+                            <li>선택이 만든 결과는 하루가 끝난 뒤 확인합니다.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- 게임 화면 ---------- -->
+        <div id="playScreen" hidden>
+
+            <!-- 진행 상황 -->
+            <section class="section" aria-labelledby="progTitle">
+                <h2 class="sr-only" id="progTitle">게임 진행 상황</h2>
+                <div class="gm-topbar">
+                    <ol class="gm-dots" id="roundDots" aria-label="라운드 진행"></ol>
+                    <div class="gm-topbar-side">
+                        <span class="gm-where" id="whereLabel"></span>
+                        <button type="button" class="btn btn-line btn-sm" id="restartBtn">처음부터 다시</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 본체 : 왼쪽 캐릭터·선택 / 오른쪽 결과 -->
+            <div class="gm-stage" id="stage">
+
+                <!-- 왼쪽 -->
+                <section class="gm-left" aria-labelledby="sitTitle">
+                    <div class="box">
+                        <div class="box-head">
+                            <span class="box-title" id="sitTitle">상황</span>
+                            <span class="box-desc" id="sitWhen"></span>
+                        </div>
+                        <div class="box-body">
+                            <div class="gm-char">
+                                <div class="gm-char-art" id="charArt" aria-hidden="true"></div>
+                                <div class="gm-char-say">
+                                    <p class="gm-sit" id="sitText"></p>
+                                    <p class="gm-mood" id="charMood"></p>
+                                </div>
+                            </div>
+
+                            <h3 class="gm-ask" id="askTitle">어떻게 할까요?</h3>
+                            <div class="gm-cards" id="cardArea" role="group" aria-labelledby="askTitle"></div>
+
+                            <div class="gm-feedback" id="feedback" hidden aria-live="polite"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 오른쪽 -->
+                <section class="gm-right" aria-labelledby="outTitle">
+                    <div class="box">
+                        <div class="box-head">
+                            <span class="box-title" id="outTitle">우리 지역 2070년대</span>
+                        </div>
+                        <div class="box-body">
+                            <p class="gm-hero-label">우리 지역 1년 중 폭염일수</p>
+                            <p class="gm-hero"><span id="heroVal">–</span><small>일</small></p>
+                            <p class="gm-hero-sub" id="heroSub"></p>
+
+                            <div class="gm-map-wrap">
+                                <div class="gm-map" id="gameMap"></div>
+                                <div class="gm-scale" aria-hidden="true">
+                                    <span class="gs-cap">선택이 만든 미래</span>
+                                    <span class="gs-bar" id="scaleBar"></span>
+                                    <span class="gs-ticks"><i>덜 더움</i><i>보통</i><i>더 더움</i></span>
+                                </div>
+                                <p class="gm-map-note">선택에 따라 고른 지역의 색과 미래 더위가 달라집니다.</p>
+                            </div>
+
+                            <dl class="gm-stats">
+                                <div>
+                                    <dt>공기 중 CO₂ 농도</dt>
+                                    <dd><b id="co2Val">–</b> ppm</dd>
+                                </div>
+                                <div>
+                                    <dt>열대야일수</dt>
+                                    <dd><b id="nightVal">–</b> 일</dd>
+                                </div>
+                                <div>
+                                    <dt>연평균기온</dt>
+                                    <dd><b id="tempVal">–</b> ℃</dd>
+                                </div>
+                            </dl>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 결과 -->
+            <section class="section" id="resultSection" hidden aria-labelledby="resTitle">
+                <h2 class="h-section" id="resTitle">5라운드 결과</h2>
+                <div class="gm-result" id="resultBox"></div>
+                <div class="gm-region-insight" id="regionInsight"></div>
+                <div class="box" style="margin-top:16px;">
+                    <div class="box-head">
+                        <span class="box-title">내가 고른 5가지</span>
+                    </div>
+                    <div class="box-body">
+                        <ol class="gm-log" id="choiceLog"></ol>
+                    </div>
+                </div>
+                <div class="gm-again">
+                    <button type="button" class="btn btn-primary" id="againBtn">다시 도전하기</button>
+                    <a class="btn btn-line" href="mylab.html">CO₂를 직접 조절해 보기</a>
+                    <a class="btn btn-navy" id="learnFromGameLink" href="guide.html#gameReview">내 선택의 원리 정리하기</a>
+                </div>
+            </section>
+        </div>
+
+        <nav class="page-flow" id="pageFlow" data-page-flow="game.html" aria-label="다른 페이지로 이동"></nav>
+    </div>
+</main>
+
+<!-- 차트 라이브러리와 예측 모델을 파일로 포함해 인터넷 없이도 동작합니다. -->
+<script src="js/vendor/plotly.min.js" charset="utf-8"></script>
+<script src="js/vendor/geo-asia.js" charset="utf-8"></script>
+<script src="js/data.js"></script>
+<script src="js/model.js"></script>
+<script src="js/climate.js"></script>
+<script src="js/predict.js"></script>
+<script src="js/common.js?v=20260821h"></script>
+<script src="js/game-data.js?v=20260821"></script>
+<script src="js/game.js?v=20260821h"></script>
+</body>
+</html>
